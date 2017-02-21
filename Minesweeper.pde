@@ -22,6 +22,8 @@ void setup ()
             buttons[r][c] = new MSButton(r,c);
    
     setBombs();
+
+
 }
 public void setBombs()
 {
@@ -113,14 +115,33 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        //your code here
+        if(r >= 0  && r <= NUM_ROWS && c>= 0 && c <= NUM_COLS)
+            return true;
         return false;
     }
     public int countBombs(int row, int col)
     {
-        int numBombs = 10;
-        //your code here
+        int numBombs = 0;
+        if(isValid(row,col) && bombs.contains(buttons[row][col]))
+            numBombs++;
+        if(isValid(row-1,col) && bombs.contains(buttons[row-1][col]))
+            numBombs++;
+        if(isValid(row-1,col-1) && bombs.contains(buttons[row-1][col-1]))
+            numBombs++;
+        if(isValid(row,col-1) && bombs.contains(buttons[row][col-1]))
+            numBombs++;
+        if(isValid(row+1,col-1) && bombs.contains(buttons[row+1][col-1]))
+            numBombs++;
+        if(isValid(row+1,col) && bombs.contains(buttons[row+1][col]))
+            numBombs++;
+        if(isValid(row+1,col+1) && bombs.contains(buttons[row+1][col+1]))
+            numBombs++;
+        if(isValid(row,col+1) && bombs.contains(buttons[row][col+1]))
+            numBombs++;
+        if(isValid(row-1,col+1) && bombs.contains(buttons[row-1][col+1]))
+            numBombs++;
         return numBombs;
+    
     }
 }
 
