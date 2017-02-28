@@ -51,11 +51,11 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    text("YOU LOSE", 200,200,50);
+   // text("YOU LOSE", 200,200,50);
 }
 public void displayWinningMessage()
 {
-    text("Congrats, you beat the game!", 200,200,50);
+    //`text("Congrats, you beat the game!", 200,200,50);
 }
 
 public class MSButton
@@ -93,16 +93,35 @@ public class MSButton
         clicked = true;
 
         if(keyPressed == true)
+        {
             marked = !marked;
-
-        //if(marked == false)
-            //clicked = false;
+            if(marked == false)
+                clicked = false;
+        }
         else if (bombs.contains(this))
             displayLosingMessage();
         else if  (countBombs(r,c) > 0)
             label = "" +countBombs(r,c) + "";
-         else  
-            buttons[r][c].mousePressed();
+        else 
+        {
+            if(isValid(r-1,c) && buttons[r-1][c].isClicked() == false)
+                buttons[r-1][c].mousePressed();
+            if(isValid(r-1,c-1) && buttons[r-1][c-1].isClicked() == false)
+                buttons[r-1][c-1].mousePressed(); 
+            if(isValid(r,c-1) && buttons[r][c-1].isClicked() == false)
+               buttons[r][c-1].mousePressed();
+            if(isValid(r+1,c-1) && buttons[r+1][c-1].isClicked() == false)
+                 buttons[r+1][c-1].mousePressed();
+            if(isValid(r+1,c) && buttons[r+1][c].isClicked() == false)
+                buttons[r+1][c].mousePressed();
+            if(isValid(r+1,c+1) && buttons[r+1][c+1].isClicked() == false)
+               buttons[r+1][c+1].mousePressed();
+            if(isValid(r,c+1) && buttons[r][c+1].isClicked() == false)
+                buttons[r][c+1].mousePressed();
+            if(isValid(r-1,c+1) && buttons[r-1][c+1].isClicked() == false)
+                buttons[r-1][c+1].mousePressed();
+        } 
+            
     
         
     }
