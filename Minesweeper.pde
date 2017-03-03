@@ -28,7 +28,7 @@ void setup ()
 }
 public void setBombs()
 {
-   for(int i = 0; i<= 50; i++)
+   for(int i = 0; i< 50; i++)
    {
      int row = (int)(Math.random()*NUM_ROWS);
     int col = (int)(Math.random()*NUM_COLS);
@@ -58,19 +58,41 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-     if(isWon() == false )
-     {
-         fill(0);
-         text("YOU LOSE", 200,200,50);
-     }
+    if(isWon() == false)
+        {
+            buttons[10][6].setLabel("Y");
+            buttons[10][7].setLabel("O");
+            buttons[10][8].setLabel("U");
+            buttons[10][9].setLabel(" ");
+            buttons[10][10].setLabel("L");
+            buttons[10][11].setLabel("O");
+            buttons[10][12].setLabel("S");
+            buttons[10][13].setLabel("E");
+
+            for(int r = 0; r < NUM_ROWS; r++)
+                for(int c = 0; c< NUM_COLS; c++)
+                    if(bombs.contains(buttons[r][c]))
+                    {
+                        //stroke(255);
+                        buttons[r][c].setLabel("B");
+                    }
+
+
+        }
 }
 public void displayWinningMessage()
 {
-    //if(isWon() == true)
-        //{
-    //      setLabel("");
-        //  text("Congrats, you beat the game!", 200,200,50);
-        //}
+    if(isWon() == true)
+        {
+            buttons[10][6].setLabel("Y");
+            buttons[10][7].setLabel("O");
+            buttons[10][8].setLabel("U");
+            buttons[10][9].setLabel(" ");
+            buttons[10][10].setLabel("W");
+            buttons[10][11].setLabel("O");
+            buttons[10][12].setLabel("N");
+            buttons[10][13].setLabel("!");
+        }
 }
 
 public class MSButton
