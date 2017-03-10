@@ -4,10 +4,11 @@ public static final int NUM_ROWS = 20;
 public static final int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
+public int remBombs = 50;
 
 void setup () 
 {
-    size(400, 400);
+    size(400, 430);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -45,6 +46,17 @@ public void draw ()
     if(isWon())
         displayWinningMessage();
 
+
+    fill(255);
+    text("Bombs remaining:  " + remBombs, 100, 415);
+    if(remBombs <= 0)
+    {
+        fill(0);
+        rect(0,400,400,30);
+        fill(255);
+       text("Bombs remaining:  0", 100, 415);
+    }
+
 }
 public boolean isWon()
 {
@@ -60,6 +72,7 @@ public void displayLosingMessage()
 {
     if(isWon() == false)
         {
+
             buttons[10][6].setLabel("Y");
             buttons[10][7].setLabel("O");
             buttons[10][8].setLabel("U");
@@ -73,7 +86,6 @@ public void displayLosingMessage()
                 for(int c = 0; c< NUM_COLS; c++)
                     if(bombs.contains(buttons[r][c]))
                     {
-                        //stroke(255);
                         buttons[r][c].setLabel("B");
                     }
 
@@ -84,6 +96,7 @@ public void displayWinningMessage()
 {
     if(isWon() == true)
         {
+         
             buttons[10][6].setLabel("Y");
             buttons[10][7].setLabel("O");
             buttons[10][8].setLabel("U");
@@ -132,8 +145,16 @@ public class MSButton
         if(keyPressed == true)
         {
             marked = !marked;
-            if(marked == false)
+            if(marked == true){
+                clicked = true;
+                remBombs--;
+            }
+            else
+            {
+                marked= false;
                 clicked = false;
+                remBombs++;
+            }
         }
         else if (bombs.contains(this))
             displayLosingMessage();
@@ -163,8 +184,11 @@ public class MSButton
 
     public void draw () 
     {    
-        if (marked)
+        if (marked){
             fill(0);
+            
+        }
+
         else if( clicked && bombs.contains(this) ) 
              fill(255,0,0);
         else if(clicked)
